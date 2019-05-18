@@ -3,8 +3,6 @@ package aes;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.util.Scanner;
 

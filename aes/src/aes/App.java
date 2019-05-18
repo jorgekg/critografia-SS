@@ -17,9 +17,12 @@ public class App {
 		case 2:
 			new EncryptedGenerator().encryptGenerated();
 			break;
+		case 3:
 		default:
+			new DecryptGenerator().decryptGenerated();
 			break;
 		}
+		s.close();
 	}
 
 }
