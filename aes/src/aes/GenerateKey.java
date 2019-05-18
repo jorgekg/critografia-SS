@@ -3,15 +3,12 @@ package aes;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
-import javax.crypto.Cipher;
+public class GenerateKey {
 
-public class Keys {
-
-	public static void main(String [] args) throws Exception {
+	public void Key() throws Exception {
         KeyPair keyPair = buildKeyPair();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -29,7 +26,7 @@ public class Keys {
         System.out.println(publicKey.getPublicExponent());
     }
 
-    public static KeyPair buildKeyPair() throws NoSuchAlgorithmException {
+    public KeyPair buildKeyPair() throws NoSuchAlgorithmException {
         final int keySize = 2048;
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(keySize);      
