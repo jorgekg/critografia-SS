@@ -20,9 +20,9 @@ namespace aes
     {
       for(var i = 0; i < this.matrix.Length; i++)
       {
-        var row = i % 4;
-        var hex = this.matrix[i / 4, row].ToString("X2");
-        if (row == 3)
+        var column = i % 4;
+        var hex = this.matrix[i / 4, column].ToString("X2");
+        if (column == 3)
         {
           Console.WriteLine(hex);
         } else 
