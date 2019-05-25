@@ -13,8 +13,11 @@ namespace aes
             var key = new AesMatrix(keyBytes);
             var simpleText = new AesMatrix(simpleTextBytes);
 
+            Console.WriteLine("****Chave****");
             key.Print();
+            Console.WriteLine("****Texto simples****");
             simpleText.Print();
+            new RoundKey(key).getAesMatrixCifred(0);
         }
     }
 }

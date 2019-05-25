@@ -1,0 +1,11 @@
+/Users/jorgeguilherme/critografia-SS/aes/bin/Debug/netcoreapp2.2/aes.deps.json
+/Users/jorgeguilherme/critografia-SS/aes/bin/Debug/netcoreapp2.2/aes.runtimeconfig.json
+/Users/jorgeguilherme/critografia-SS/aes/bin/Debug/netcoreapp2.2/aes.runtimeconfig.dev.json
+/Users/jorgeguilherme/critografia-SS/aes/bin/Debug/netcoreapp2.2/aes.dll
+/Users/jorgeguilherme/critografia-SS/aes/bin/Debug/netcoreapp2.2/aes.pdb
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.csprojAssemblyReference.cache
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.csproj.CoreCompileInputs.cache
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.AssemblyInfoInputs.cache
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.AssemblyInfo.cs
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.dll
+/Users/jorgeguilherme/critografia-SS/aes/obj/Debug/netcoreapp2.2/aes.pdb

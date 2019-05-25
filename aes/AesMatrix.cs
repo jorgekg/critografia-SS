@@ -4,7 +4,7 @@ namespace aes
 {
   public class AesMatrix
   {
-    private byte[,] matrix;
+    public byte[,] matrix { get; set; }
     public AesMatrix(byte[] bytes)
     {
       if (bytes.Length != 16) {
