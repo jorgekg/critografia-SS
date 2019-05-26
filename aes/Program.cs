@@ -7,17 +7,21 @@ namespace aes
     {
         static void Main(string[] args)
         {
-            var simpleTextBytes = File.ReadAllBytes("./arquivo/texto.txt");
-            var keyBytes = File.ReadAllBytes("./chave/chave.txt");
+            try {
+                var simpleTextBytes = File.ReadAllBytes("./arquivo/texto.txt");
+                var keyBytes = File.ReadAllBytes("./chave/chave.txt");
 
-            var key = new AesMatrix(keyBytes);
-            var simpleText = new AesMatrix(simpleTextBytes);
+                var key = new AesMatrix(keyBytes);
+                var simpleText = new AesMatrix(simpleTextBytes);
 
-            Console.WriteLine("****Chave****");
-            key.Print();
-            Console.WriteLine("****Texto simples****");
-            simpleText.Print();
-            new RoundKey(key).getAesMatrixCifred(0);
+                Console.WriteLine("****Chave****");
+                key.Print();
+                Console.WriteLine("****Texto simples****");
+                simpleText.Print();
+                new RoundKey(key).getAesMatrixCifred();
+            } catch(Exception e) {
+                Console.WriteLine(e.StackTrace);
+            }
         }
     }
 }

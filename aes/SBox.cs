@@ -3,7 +3,7 @@ using System.IO;
 
 namespace aes
 {
-    class SBox
+    public class SBox
     {
         public byte[,] sbox = new byte[16, 16];
 
