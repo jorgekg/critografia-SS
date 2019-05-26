@@ -14,8 +14,20 @@ namespace aes
         public AesMatrix getAesMatrixCifred(int roundKey) {
             this.RotateByte();
             this.SubByte();
+            this.XORWithRoundConstant(roundKey);
             this.aesMatrix.Print();
             return this.aesMatrix;
+        }
+
+        private void XORWithRoundConstant(int roundKey) {
+            for (var i = 0; i < 4; i++)
+            {
+                Console.WriteLine(RoundConstant.GetConstant(roundKey));
+                aesMatrix.matrix[0, i] = Convert.ToByte(
+                    Convert.ToInt32(aesMatrix.matrix[0, i].ToString("X2"), 16) -
+                    RoundConstant.GetConstant(roundKey)
+                );
+            }
         }
 
         private void SubByte() {
@@ -23,7 +35,7 @@ namespace aes
             for (var i = 0; i < 4; i++)
             {
                 for (var j = 0; j < 4; j++) {
-                    newMatrix[i, j] = SBox.Replace(this.aesMatrix.matrix[i, j]);
+                    newMatrix[i, j] = SBox.Replace(this.aesMatrix.matrix[i, j].ToString("X2"));
                 }
             }
             this.aesMatrix.matrix =  newMatrix;

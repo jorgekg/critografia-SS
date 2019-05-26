@@ -10,6 +10,7 @@ namespace aes
         private static SBox sboxSingleton;
         private string sboxString = 
             "63 7c 77 7b f2 6b 6f c5 30 01 67 2b fe d7 ab 76 " +
+            "ca 82 c9 7d fa 59 47 f0 ad d4 a2 af 9c a4 72 c0 " +
             "b7 fd 93 26 36 3f f7 cc 34 a5 e5 f1 71 d8 31 15 " +
             "04 c7 23 c3 18 96 05 9a 07 12 80 e2 eb 27 b2 75 " +
             "09 83 2c 1a 1b 6e 5a a0 52 3b d6 b3 29 e3 2f 84 " +
@@ -29,13 +30,12 @@ namespace aes
             this.Initialize();
         }
 
-        public static byte Replace(byte bte) {
+        public static byte Replace(string bte) {
             if (sboxSingleton == null) {
                 SBox.sboxSingleton = new SBox();
             }
-            string byteStr = Convert.ToString(bte);
-            string[] byteStrArray = byteStr.Split("");
-            return SBox.sboxSingleton.sbox[Int32.Parse(byteStrArray[0]), Int32.Parse(byteStrArray[1])];
+            var byteStr = bte.ToCharArray();
+            return SBox.sboxSingleton.sbox[Convert.ToInt32(byteStr[0].ToString(), 16), Convert.ToInt32(byteStr[1].ToString(), 16)];
         }
 
         private void Initialize() {
@@ -48,7 +48,7 @@ namespace aes
         }
 
         private byte ToByte(String bte) {
-            return Convert.ToByte(bte);
+            return Convert.ToByte(Convert.ToInt32(bte, 16));
         }
     }
 }
