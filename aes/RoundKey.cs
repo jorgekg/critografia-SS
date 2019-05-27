@@ -23,17 +23,50 @@ namespace aes
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    newKeyScheduler = this.RotateByte(roundKey, i);
-                    newKeyScheduler = this.SubByte(newKeyScheduler);
-                    newKeyScheduler = this.XORWithRoundConstant(roundKey, newKeyScheduler);
-                    newKeyScheduler = this.XORWithPropositionalKeyScheduler(i, roundKey, newKeyScheduler);
-                    this.SetKeyScheduler(newKeyScheduler, roundKey, i);
-                    newKeyScheduler = new byte[4];
+                    if (i.Equals(0))
+                    {
+                        this.generateFirstKeyScheduler(newKeyScheduler, roundKey, i);
+                    }
+                    else
+                    {
+                        this.generateLastedKeyScheduler(roundKey, i);
+                    }
                 }
+                this.PrintKeyScheduler(roundKey);
+                Console.WriteLine();
             }
-            this.PrintKeyScheduler();
-            Console.WriteLine();
-            return this.aesMatrix;
+            return this.PrintKeyScheduler(10);
+        }
+
+        private void generateLastedKeyScheduler(int roundKey, int index)
+        {
+            var propositionalKeyInt = (roundKey * 4);
+            var propositionalKey = new byte[4] {
+                this.keyScheduler[0, propositionalKeyInt + index],
+                this.keyScheduler[1, propositionalKeyInt + index],
+                this.keyScheduler[2, propositionalKeyInt + index],
+                this.keyScheduler[3, propositionalKeyInt + index]
+            };
+            var key = ((roundKey + 1) * 4) + (index - 1);
+            var newKeyScheduler = new byte[4] {
+                this.keyScheduler[0, key],
+                this.keyScheduler[1, key],
+                this.keyScheduler[2, key],
+                this.keyScheduler[3, key]
+            };
+            for (int i = 0; i < 4; i++)
+            {
+                this.keyScheduler[i, key + 1] = Convert.ToByte(propositionalKey[i] ^ newKeyScheduler[i]);
+            }
+        }
+
+        private void generateFirstKeyScheduler(byte[] newKeyScheduler, int roundKey, int i)
+        {
+            newKeyScheduler = this.RotateByte(roundKey, i);
+            newKeyScheduler = this.SubByte(newKeyScheduler);
+            newKeyScheduler = this.XORWithRoundConstant(roundKey, newKeyScheduler);
+            newKeyScheduler = this.XORWithPropositionalKeyScheduler(i, roundKey, newKeyScheduler);
+            this.SetKeyScheduler(newKeyScheduler, roundKey, i);
         }
 
         private void SetKeyScheduler(byte[] newKeyScheduler, int roundKey, int indexRound)
@@ -44,27 +77,24 @@ namespace aes
             this.keyScheduler[2, index] = newKeyScheduler[2];
             this.keyScheduler[3, index] = newKeyScheduler[3];
         }
-
-        private void Print(byte[] bte)
+        private AesMatrix PrintKeyScheduler(int roundKey)
         {
-            for (int i = 0; i < bte.Length; i++)
-            {
-                Console.WriteLine(bte[i].ToString("X2"));
-            }
-        }
-
-        private void PrintKeyScheduler()
-        {
+            Console.WriteLine(String.Format("*****Round Key {0} ******", roundKey));
+            var initialKey = ((roundKey + 1) * 4) - 4;
+            AesMatrix matrix = new AesMatrix();
             for (int i = 0; i < 4; i++)
 
             {
-                for (int j = 0; j < 40; j++)
+                for (int j = initialKey; j < (roundKey + 1) * 4; j++)
                 {
-
                     Console.Write(this.keyScheduler[i, j].ToString("X2") + " ");
+                    if ((roundKey + 1) * 4 == 44) {
+                        matrix.matrix[i, j - 40] = this.keyScheduler[i, j];
+                    }
                 }
                 Console.WriteLine();
             }
+            return matrix;
         }
 
         private void CreateKeySchedule()
@@ -91,15 +121,13 @@ namespace aes
             {
                 newKeyScheduler[i] = Convert.ToByte(newKeyScheduler[i] ^ propositionalKey[i]);
             }
-
             return newKeyScheduler;
         }
 
         private byte[] XORWithRoundConstant(int roundKey, byte[] newKeyScheduler)
         {
             newKeyScheduler[0] = Convert.ToByte(
-                    newKeyScheduler[0] ^
-                    RoundConstant.GetConstant(roundKey)
+                    newKeyScheduler[0] ^ RoundConstant.GetConstant(roundKey)
                 );
             return newKeyScheduler;
         }

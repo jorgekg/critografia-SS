@@ -5,7 +5,9 @@ namespace aes
   public class AesMatrix
   {
     public byte[,] matrix { get; set; }
-    public AesMatrix() {}
+    public AesMatrix() {
+      this.matrix = new byte[4, 4];
+    }
     public AesMatrix(byte[] bytes)
     {
       if (bytes.Length != 16) {

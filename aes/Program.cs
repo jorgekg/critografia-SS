@@ -18,7 +18,11 @@ namespace aes
                 key.Print();
                 Console.WriteLine("****Texto simples****");
                 simpleText.Print();
-                new RoundKey(key).getAesMatrixCifred();
+                var rounds = new RoundKey(key).getAesMatrixCifred();
+                Console.WriteLine("****AddRoundKey-Round 0****");
+                var simpleXor = new SimpleXor(key, simpleText).GetSimpleXOR();
+                var cifred = new MatrixRoundKey(simpleXor).GetRounds();
+                simpleXor.Print();
             } catch(Exception e) {
                 Console.WriteLine(e.StackTrace);
             }
