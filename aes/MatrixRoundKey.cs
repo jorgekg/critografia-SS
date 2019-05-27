@@ -33,8 +33,10 @@ namespace aes
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    Console.WriteLine(TableL.Replace(this.simpleText.matrix[0, i].ToString("X2")).ToString("X2"));
-                    Console.WriteLine(TableL.Replace(this.getMatrixMixColumn(j)[0].ToString("X2")).ToString("X2"));
+                    Console.WriteLine((
+                            TableL.Replace(this.simpleText.matrix[0, i].ToString("X2")) + 
+                            TableL.Replace(this.getMatrixMixColumn(j)[0].ToString("X2"))
+                         ).ToString("X2"));
                     var result = (
                         (
                             TableL.Replace(this.simpleText.matrix[0, i].ToString("X2")) + 

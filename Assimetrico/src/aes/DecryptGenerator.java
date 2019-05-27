@@ -9,6 +9,7 @@ import java.security.spec.RSAPrivateKeySpec;
 
 import javax.crypto.Cipher;
 
+//Criado pelo Jorge
 public class DecryptGenerator {
 	
 	public void decryptGenerated() throws Exception {

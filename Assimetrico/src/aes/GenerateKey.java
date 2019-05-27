@@ -5,7 +5,7 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-
+//Criado pelo Jorge
 public class GenerateKey {
 
 	public void Key() throws Exception {
@@ -32,5 +32,6 @@ public class GenerateKey {
         keyPairGenerator.initialize(keySize);      
         return keyPairGenerator.genKeyPair();
     }
+    //Criado pelo Jorge
 
 }

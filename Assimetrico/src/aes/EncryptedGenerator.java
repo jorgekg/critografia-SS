@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.crypto.Cipher;
 
+//Criado pelo Jorge
 public class EncryptedGenerator {
 
 	public void encryptGenerated() throws Exception {
@@ -39,6 +40,7 @@ public class EncryptedGenerator {
         Cipher cipher = Cipher.getInstance("RSA"); 
         cipher.init(Cipher.ENCRYPT_MODE, key);  
         return cipher.doFinal(message.getBytes());  
+		//Criado pelo Jorge
     }
 	
 }
