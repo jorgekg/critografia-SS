@@ -11,76 +11,112 @@ namespace aes
             this.simpleText = simpleText;
         }
 
-        public AesMatrix GetRounds()
+        public AesMatrix GetRounds(byte[,] keyScheduler)
         {
-            for(int i = 0; i < 1; i++) {
+            for (int i = 0; i < 10; i++)
+            {
                 this.SubBytes();
-                Console.WriteLine(String.Format("****SubBytes-Round {0}****", i));
+                Console.WriteLine(String.Format("****SubBytes-Round {0}****", i + 1));
                 this.simpleText.Print();
                 this.ShiftRows();
-                Console.WriteLine(String.Format("****ShiftRows-Round 1****", i));
+                Console.WriteLine(String.Format("****ShiftRows-Round {0}****", i + 1));
                 this.simpleText.Print();
                 this.MixColumn();
-                Console.WriteLine(String.Format("****MixedColumns-Round 1****", i));
+                Console.WriteLine(String.Format("****MixedColumns-Round {0}****", i + 1));
+                this.simpleText.Print();
+                this.addRoundKey(keyScheduler, i);
+                Console.WriteLine(String.Format("****addRoundKey-Round {0}****", i + 1));
                 this.simpleText.Print();
             }
             return this.simpleText;
         }
 
-        private void MixColumn() {
+        private void addRoundKey(byte[,] keyScheduler, int roundKey)
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    this.simpleText.matrix[j, i] = Convert.ToByte(
+                        this.simpleText.matrix[j, i] ^
+                        keyScheduler[j, (((roundKey + 1) * 4) + i)]
+                    );
+                }
+            }
+        }
+
+        private void MixColumn()
+        {
             byte[,] mixColumn = new byte[4, 4];
             for (var i = 0; i < 4; i++)
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    Console.WriteLine((
-                            TableL.Replace(this.simpleText.matrix[0, i].ToString("X2")) + 
-                            TableL.Replace(this.getMatrixMixColumn(j)[0].ToString("X2"))
-                         ).ToString("X2"));
                     var result = (
-                        (
-                            TableL.Replace(this.simpleText.matrix[0, i].ToString("X2")) + 
-                            TableL.Replace(this.getMatrixMixColumn(j)[0].ToString("X2"))
-                         ) ^
-                        (
-                            TableL.Replace(this.simpleText.matrix[1, i].ToString("X2")) + 
-                            TableL.Replace(this.getMatrixMixColumn(j)[1].ToString("X2"))
+                        TableE.Replace(
+                            ValidateWidthValue(nvl(this.simpleText.matrix[0, i], this.getMatrixMixColumn(j)[0], i, j)).ToString("X2")
                         ) ^
-                        (
-                            TableL.Replace(this.simpleText.matrix[2, i].ToString("X2")) + 
-                            TableL.Replace(this.getMatrixMixColumn(j)[2].ToString("X2"))
+                        TableE.Replace(
+                            ValidateWidthValue(nvl(this.simpleText.matrix[1, i], this.getMatrixMixColumn(j)[1], i, j)).ToString("X2")
                         ) ^
-                        (
-                            TableL.Replace(this.simpleText.matrix[3, i].ToString("X2")) + 
-                            TableL.Replace(this.getMatrixMixColumn(j)[3].ToString("X2"))
+                        TableE.Replace(
+                            ValidateWidthValue(nvl(this.simpleText.matrix[2, i], this.getMatrixMixColumn(j)[2], i, j)).ToString("X2")
+                        ) ^
+                        TableE.Replace(
+                            ValidateWidthValue(nvl(this.simpleText.matrix[3, i], this.getMatrixMixColumn(j)[3], i, j)).ToString("X2")
                         )
                     );
-                    Console.WriteLine(result.ToString("X2"));
-                    throw new Exception();
-                    if (result > 255) {
-                        result -= 255;
-                    }
-                    mixColumn[i, j] = Convert.ToByte(SBox.Replace(result.ToString("X2")));
+                    mixColumn[j, i] = Convert.ToByte(result);
                 }
             }
             this.simpleText.matrix = mixColumn;
         }
 
-        private int[] getMatrixMixColumn(int line) {
-            switch (line) {
+        private int nvl(int val1, int val2, int i, int j)
+        {
+            var val1Result = (ValidateWidthValue(TableL.Replace(val1.ToString("X2")) + TableL.Replace(val2.ToString("X2")))).ToString("X2");
+            if (val1Result.ToString().ToCharArray()[0] == 0 || val1Result.ToString().ToCharArray()[1] == 0)
+            {
+                return 0;
+            }
+            if (val1Result.ToString().ToCharArray()[0] == 1)
+            {
+                return val1Result.ToString().ToCharArray()[1];
+            }
+            if (val1Result.ToString().ToCharArray()[1] == 1)
+            {
+                return val1Result.ToString().ToCharArray()[0];
+            }
+            return TableL.Replace(val1.ToString("X2")) + TableL.Replace(val2.ToString("X2"));
+        }
+
+        private int ValidateWidthValue(int value)
+        {
+            if (value > 255)
+            {
+                return value - 255;
+            }
+            return value;
+        }
+
+        private int[] getMatrixMixColumn(int line)
+        {
+            switch (line)
+            {
                 case 0:
-                    return new int[4] {2, 3, 1, 1};
+                    return new int[4] { 2, 3, 1, 1 };
                 case 1:
-                    return new int[4] {1, 2, 3, 1};
+                    return new int[4] { 1, 2, 3, 1 };
                 case 2:
-                    return new int[4] {1, 1, 2, 3};
+                    return new int[4] { 1, 1, 2, 3 };
                 case 3:
-                    return new int[4] {3, 1, 1, 2};
+                    return new int[4] { 3, 1, 1, 2 };
             }
             return null;
         }
 
-        public void SubBytes() {
+        public void SubBytes()
+        {
             for (var i = 0; i < 4; i++)
             {
                 for (var j = 0; j < 4; j++)
@@ -90,7 +126,8 @@ namespace aes
             }
         }
 
-        private void ShiftRows() {
+        private void ShiftRows()
+        {
             var v1 = this.simpleText.matrix[1, 0];
             this.simpleText.matrix[1, 0] = this.simpleText.matrix[1, 1];
             this.simpleText.matrix[1, 1] = this.simpleText.matrix[1, 2];

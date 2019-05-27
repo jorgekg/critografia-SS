@@ -18,10 +18,9 @@ namespace aes
                 key.Print();
                 Console.WriteLine("****Texto simples****");
                 simpleText.Print();
-                var rounds = new RoundKey(key).getAesMatrixCifred();
-                Console.WriteLine("****AddRoundKey-Round 0****");
+                var keyScheduler = new RoundKey(key).getAesMatrixCifred();
                 var simpleXor = new SimpleXor(key, simpleText).GetSimpleXOR();
-                var cifred = new MatrixRoundKey(simpleXor).GetRounds();
+                var cifred = new MatrixRoundKey(simpleXor).GetRounds(keyScheduler);
                 simpleXor.Print();
             } catch(Exception e) {
                 Console.WriteLine(e.StackTrace);

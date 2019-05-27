@@ -15,7 +15,7 @@ namespace aes
             this.keyScheduler = new byte[4, 44];
         }
 
-        public AesMatrix getAesMatrixCifred()
+        public byte[,] getAesMatrixCifred()
         {
             this.CreateKeySchedule();
             byte[] newKeyScheduler = new byte[4];
@@ -35,7 +35,7 @@ namespace aes
                 this.PrintKeyScheduler(roundKey);
                 Console.WriteLine();
             }
-            return this.PrintKeyScheduler(10);
+            return keyScheduler;
         }
 
         private void generateLastedKeyScheduler(int roundKey, int index)
