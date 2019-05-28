@@ -27,10 +27,10 @@ namespace aes
         var hex = this.matrix[i / 4, column].ToString("X2");
         if (column == 3)
         {
-          Console.WriteLine(hex);
+          Console.WriteLine("0x" + hex);
         } else 
         {
-          Console.Write($"{hex} ");
+          Console.Write("0x" + $"{hex} ");
         }
       }
       Console.WriteLine();

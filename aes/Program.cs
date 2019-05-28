@@ -21,7 +21,8 @@ namespace aes
                 var keyScheduler = new RoundKey(key).getAesMatrixCifred();
                 var simpleXor = new SimpleXor(key, simpleText).GetSimpleXOR();
                 var cifred = new MatrixRoundKey(simpleXor).GetRounds(keyScheduler);
-                simpleXor.Print();
+                Console.WriteLine("****Texto cifrado****");
+                cifred.Print();
             } catch(Exception e) {
                 Console.WriteLine(e.StackTrace);
             }

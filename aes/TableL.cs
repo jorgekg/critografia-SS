@@ -8,7 +8,7 @@ namespace aes
         public byte[,] tableL = new byte[16, 16];
  
         private static TableL tableLSingleton;
-        private string sboxString = 
+        private string tableLTb = 
             "00 00 19 01 32 02 1a c6 4b c7 1b 68 33 ee df 03 " +
             "64 04 e0 0e 34 8d 81 ef 4c 71 08 c8 f8 69 1c c1 " +
             "7d c2 1d b5 f9 b9 27 6a 4d e4 a6 72 9a c9 09 78 " +
@@ -24,7 +24,7 @@ namespace aes
             "97 b2 87 90 61 be dc fc bc 95 cf cd 37 3f 5b d1 " + 
             "53 39 84 3c 41 a2 6d 47 14 2a 9e 5d 56 f2 d3 ab " +
             "44 11 92 d9 23 20 2e 89 b4 7c b8 26 77 99 e3 a5 " +
-            "67 4a ed de c5 31 fe 18 0d 63 8c 80 c0 f7 70 07 ";
+            "67 4a ed de c5 31 fe 18 0d 63 8c 80 c0 f7 70 07";
 
         public TableL() {
             this.Initialize();
@@ -39,10 +39,10 @@ namespace aes
         }
 
         private void Initialize() {
-            string[] sboxArray = sboxString.Split(" ");
+            string[] tableLTbArray = tableLTb.Split(" ");
             for (var i = 0; i < 16; i++) {
                 for (var j = 0; j < 16; j++) {
-                    tableL[i, j] = ToByte(sboxArray[(i * 16) + j]);
+                    tableL[i, j] = ToByte(tableLTbArray[(i * 16) + j]);
                 }
             }
         }
