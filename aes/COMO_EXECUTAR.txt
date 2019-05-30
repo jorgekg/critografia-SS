@@ -1,0 +1,6 @@
+Para executar é necessário ter o dotnet instalado.
+
+inserir o texto simples no diretório ./arquivo/texto.txt
+inserir a chave no diretório ./chave/chave.txt
+
+executar o comando dotnet run
