@@ -1,8 +1,8 @@
 Para testar, basta executar o main do projeto.
 opção 1 para gerar a chave.
 opção 2 para assinar com as chaves geradas na opção 1
-opção 3 para validar a assinatura da opão 2.
+opção 3 para validar a assinatura da opção 2.
 
 
-Para simular um erro basta alterar manualmente os arquivod da opção 1 ou 2,
+Para simular um erro basta alterar manualmente os arquivos da opção 1 ou 2,
 ou somente regerar as chave chave na opção 1 sem a opção 2.
