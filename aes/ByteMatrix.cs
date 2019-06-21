@@ -11,7 +11,6 @@ namespace aes
     public ByteMatrix(byte[] bytes)
     {
       if (bytes.Length > 16) {
-        Console.WriteLine("aqui");
         this.add(bytes);
       } else {
         this.byteMatrix.Add(new AesMatrix(this.Preencher(bytes)));

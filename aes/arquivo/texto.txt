@@ -1,1 +1,1 @@
-DESENVOLVIMENTO!
+using System;using System.IO;namespace aes{public class MatrixRoundKey{private AesMatrix crifredText;public MatrixRoundKey(AesMatrix crifredText)

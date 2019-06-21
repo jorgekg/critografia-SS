@@ -16,7 +16,6 @@ namespace aes
 
         var key = new AesMatrix(keyBytes);
         var simpleTextMatrix = new ByteMatrix(simpleTextBytes);
-        Console.WriteLine("teste");
         Console.WriteLine(simpleTextMatrix.byteMatrix.Count);
         byte[] bte = new byte[simpleTextMatrix.byteMatrix.Count * 16];
         var loop = 1;
